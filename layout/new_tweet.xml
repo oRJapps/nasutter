@@ -1,0 +1,64 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#cab8d9"
+    android:padding="8dp" >
+
+    <EditText
+        android:id="@+id/input_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/input_text"
+        android:layout_alignRight="@+id/input_text"
+        android:layout_below="@+id/input_text"
+        android:layout_marginTop="19dp"
+        android:text="画像選択（4枚まで）" />
+
+    <Button
+        android:id="@+id/action_tweet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button1"
+        android:layout_below="@+id/button1"
+        android:layout_marginTop="15dp"
+        android:text="投稿する" />
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/action_tweet"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="36dp"
+        android:columnCount="2"
+        android:rowCount="2"
+        android:visibility="visible" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_gravity="left"
+            android:src="@drawable/nasu" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_gravity="left"
+            android:src="@drawable/nasu" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_gravity="left"
+            android:src="@drawable/nasu" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_gravity="left"
+            android:src="@drawable/nasu" />
+
+    </GridLayout>
+
+</RelativeLayout>

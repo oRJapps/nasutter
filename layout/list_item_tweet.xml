@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#cab8d9"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.73"
+        android:orientation="vertical"
+        android:gravity="right"
+
+     >
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="名前入ります"
+            android:textColor="#9932CC"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/screen_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="\uFF20nasulrj"
+            android:textColor="#00a86b"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="1dp" >
+
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="0.5dp"
+                android:columnCount="1"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:src="@drawable/ic_launcher" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:src="@drawable/ic_launcher" />
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:src="@drawable/ic_launcher" />
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:src="@drawable/ic_launcher" />
+
+            </GridLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_fu"
+            android:gravity="left|center"
+            android:text="本文本文本文本文本文本文本文本文本文本文"
+            android:textColor="#800080"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+   <FrameLayout
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+
+      >
+
+   <ImageView
+       android:id="@+id/icon"
+       android:layout_width="50dp"
+       android:layout_height="50dp"
+       android:layout_weight="0.73"
+       android:paddingLeft="1dp"
+       android:src="@drawable/ic_launcher" />
+
+   <ImageView
+       android:id="@+id/rt_icon"
+       android:layout_width="25dp"
+       android:layout_height="25dp"
+       android:layout_gravity="bottom|right"
+       android:layout_weight="0.73"
+       android:src="@drawable/ic_launcher"
+       android:visibility="gone" />
+
+   </FrameLayout>
+
+
+</LinearLayout>
