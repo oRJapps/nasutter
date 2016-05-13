@@ -15,7 +15,7 @@ nasutterはシンプルなTwitterクライアントでAndroid専用です。利�
 8. リプライ一覧取得(Mentions)
 
 # nasutter Download URL
-https://play.google.com/store/apps/details?id=nasulrich.nasu.nasutter
+https://play.google.com/store/apps/details?id=nasulrich.nasu.nasutter<br>
 1日早いですけどGooglePlayStoreにて公開致しました。<br>
 以前のバージョンをDLされた方は一度消してから上記URLから再インストールよろしくお願いします。
 
