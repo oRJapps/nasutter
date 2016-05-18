@@ -1,4 +1,4 @@
-package android.example.shutwitter;
+package nasu.net.nasutter;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -16,6 +16,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -48,6 +49,7 @@ public class TweetActivity extends Activity {
     long media_id =0;
 
     private static final int RESULT_PICK_IMAGEFILE = 1001;
+    private static final int RESULT_PICK_IMAGEFILE_19 = 2001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,12 +66,21 @@ public class TweetActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-                intent.addCategory(Intent.CATEGORY_OPENABLE);
-                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-                intent.setType("image/*");
-                gazou=true;
-                startActivityForResult(intent, RESULT_PICK_IMAGEFILE);
+            	if (Build.VERSION.SDK_INT < 19) {
+            	    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            	    intent.setType("image/*");
+            	    gazou=true;
+            	    startActivityForResult(intent,RESULT_PICK_IMAGEFILE_19);
+            	  } else {
+            		  Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                      intent.addCategory(Intent.CATEGORY_OPENABLE);
+                      intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                      intent.setType("image/*");
+                      gazou=true;
+                      startActivityForResult(intent, RESULT_PICK_IMAGEFILE);
+            	  }
+
+
             }
         });
 
@@ -84,77 +95,82 @@ public class TweetActivity extends Activity {
     @Override
     public void onActivityResult(int requestCode, int resultCode,final Intent resultData) {
 
-        if (requestCode != RESULT_PICK_IMAGEFILE || resultCode != RESULT_OK) {
-            return;
-        }
-        imageView=(ImageView) findViewById(R.id.imageView1);
-        imageView2=(ImageView) findViewById(R.id.imageView2);
-        imageView3=(ImageView) findViewById(R.id.imageView3);
-        imageView4=(ImageView) findViewById(R.id.imageView4);
+        if (requestCode != RESULT_PICK_IMAGEFILE || requestCode != RESULT_PICK_IMAGEFILE_19 ){
+        	if(resultCode != RESULT_OK) {
+        		return;
+        	}
+        	imageView=(ImageView) findViewById(R.id.imageView1);
+            imageView2=(ImageView) findViewById(R.id.imageView2);
+            imageView3=(ImageView) findViewById(R.id.imageView3);
+            imageView4=(ImageView) findViewById(R.id.imageView4);
 
 
 
-        ClipData clipData = resultData.getClipData();
+            ClipData clipData = resultData.getClipData();
 
-        if(clipData!=null){
-        	//‰æ‘œ‚ð2–‡ˆÈã“Še‚·‚éê‡
-            List list = new ArrayList();
-            float size =0.1f;
-            gazou = true;
-            mediaIds = new long[clipData.getItemCount()];
-            for (int i = 0; i < clipData.getItemCount();  i++) {
-            	ClipData.Item item = clipData.getItemAt(i);
-                multiuri=item.getUri();
-                list.add(multiuri);
-                //Log.i("flg", uri.toString());
-             }
-             multi_uri =(Uri[])list.toArray(new Uri[0]);
-             switch(clipData.getItemCount()){
+            if(clipData!=null){
+            	//‰æ‘œ‚ð2–‡ˆÈã“Še‚·‚éê‡
+                List list = new ArrayList();
+                float size =0.1f;
+                gazou = true;
+                mediaIds = new long[clipData.getItemCount()];
+                for (int i = 0; i < clipData.getItemCount();  i++) {
+                	ClipData.Item item = clipData.getItemAt(i);
+                    multiuri=item.getUri();
+                    list.add(multiuri);
+                    //Log.i("flg", uri.toString());
+                 }
+                 multi_uri =(Uri[])list.toArray(new Uri[0]);
+                 switch(clipData.getItemCount()){
 
-             	case 2:
-                  Glide.with(TweetActivity.this).load(multi_uri[0]).thumbnail(size).into(imageView);
-                  Glide.with(TweetActivity.this).load(multi_uri[1]).thumbnail(size).into(imageView2);
-                  imageView3.setVisibility(View.GONE);
-                  imageView4.setVisibility(View.GONE);
-                  k=2;
-                  break;
-             	case 3:
-             	  Glide.with(TweetActivity.this).load(multi_uri[0]).thumbnail(size).into(imageView);
-                  Glide.with(TweetActivity.this).load(multi_uri[1]).thumbnail(size).into(imageView2);
-                  Glide.with(TweetActivity.this).load(multi_uri[2]).thumbnail(size).into(imageView3);
-                  imageView4.setVisibility(View.GONE);
-                  k=3;
-                  break;
-                case 4:
-                  Glide.with(TweetActivity.this).load(multi_uri[0]).thumbnail(size).into(imageView);
-                  Glide.with(TweetActivity.this).load(multi_uri[1]).thumbnail(size).into(imageView2);
-                  Glide.with(TweetActivity.this).load(multi_uri[2]).thumbnail(size).into(imageView3);
-                  Glide.with(TweetActivity.this).load(multi_uri[3]).thumbnail(size).into(imageView4);
-                  k=4;
-                  break;
-                default:
-                  showToast("Twitter‚Ö‚Ì‰æ‘œ“Še‚Í4–‡‚Ü‚Å‚Å‚·");
-                  imageView.setVisibility(View.GONE);
+                 	case 2:
+                      Glide.with(TweetActivity.this).load(multi_uri[0]).thumbnail(size).into(imageView);
+                      Glide.with(TweetActivity.this).load(multi_uri[1]).thumbnail(size).into(imageView2);
+                      imageView3.setVisibility(View.GONE);
+                      imageView4.setVisibility(View.GONE);
+                      k=2;
+                      break;
+                 	case 3:
+                 	  Glide.with(TweetActivity.this).load(multi_uri[0]).thumbnail(size).into(imageView);
+                      Glide.with(TweetActivity.this).load(multi_uri[1]).thumbnail(size).into(imageView2);
+                      Glide.with(TweetActivity.this).load(multi_uri[2]).thumbnail(size).into(imageView3);
+                      imageView4.setVisibility(View.GONE);
+                      k=3;
+                      break;
+                    case 4:
+                      Glide.with(TweetActivity.this).load(multi_uri[0]).thumbnail(size).into(imageView);
+                      Glide.with(TweetActivity.this).load(multi_uri[1]).thumbnail(size).into(imageView2);
+                      Glide.with(TweetActivity.this).load(multi_uri[2]).thumbnail(size).into(imageView3);
+                      Glide.with(TweetActivity.this).load(multi_uri[3]).thumbnail(size).into(imageView4);
+                      k=4;
+                      break;
+                    default:
+                      showToast("Twitter‚Ö‚Ì‰æ‘œ“Še‚Í4–‡‚Ü‚Å‚Å‚·");
+                      imageView.setVisibility(View.GONE);
+                      imageView2.setVisibility(View.GONE);
+                      imageView3.setVisibility(View.GONE);
+                      imageView4.setVisibility(View.GONE);
+                      gazou=false;
+                      k=0;
+                      break;
+
+                  }
+                            //Log.i("Flg", multi_uri.toString());
+
+              }else{
+            	  //‰æ‘œ‚ð1–‡‚Ì‚Ý“Še‚·‚éê‡
+
+                  uri = resultData.getData();
+                  Glide.with(TweetActivity.this).load(uri).thumbnail(0.1f).into(imageView);
                   imageView2.setVisibility(View.GONE);
                   imageView3.setVisibility(View.GONE);
                   imageView4.setVisibility(View.GONE);
-                  gazou=false;
-                  k=0;
-                  break;
 
               }
-                        //Log.i("Flg", multi_uri.toString());
+        }
 
-          }else{
-        	  //‰æ‘œ‚ð1–‡‚Ì‚Ý“Še‚·‚éê‡
 
-              uri = resultData.getData();
-              Glide.with(TweetActivity.this).load(uri).thumbnail(0.1f).into(imageView);
-              imageView2.setVisibility(View.GONE);
-              imageView3.setVisibility(View.GONE);
-              imageView4.setVisibility(View.GONE);
 
-          }
     }
 
 
@@ -218,6 +234,8 @@ public class TweetActivity extends Activity {
 		                update.setMediaIds(mediaIds);
 		                mTwitter.updateStatus(update);
 
+
+
 		            } catch (TwitterException e) {
 		                e.printStackTrace();
 		                return false;
@@ -228,6 +246,16 @@ public class TweetActivity extends Activity {
 		        protected void onPostExecute(Boolean result) {
 		            if(result) {
 		                showToast("“Še‚É¬Œ÷‚µ‚Ü‚µ‚½");
+		                mInputText.setText(null);
+		                imageView.setImageResource(R.drawable.nasu);
+		                imageView2.setImageResource(R.drawable.nasu);
+		                imageView3.setImageResource(R.drawable.nasu);
+		                imageView4.setImageResource(R.drawable.nasu);
+		                imageView.setVisibility(View.VISIBLE);
+		                imageView2.setVisibility(View.VISIBLE);
+		                imageView3.setVisibility(View.VISIBLE);
+		                imageView4.setVisibility(View.VISIBLE);
+
 
 		            } else {
 		                showToast("“Še‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
@@ -252,6 +280,7 @@ public class TweetActivity extends Activity {
 			    protected void onPostExecute(Boolean result) {
 			        if(result) {
 			            showToast("“Še‚É¬Œ÷‚µ‚Ü‚µ‚½");
+			            mInputText.setText("");
 			        } else {
 			            showToast("“Še‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
 			        }
